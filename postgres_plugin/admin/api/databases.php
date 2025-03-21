@@ -7,7 +7,7 @@
 
 // Initialize session and check admin permissions
 session_start();
-require_once(dirname(__FILE__) . '/../../../scripts/check_admin_auth.php');
+require_once(dirname(__FILE__) . '/../../scripts/check_admin_auth.php');
 
 // Set content type to JSON
 header('Content-Type: application/json');
@@ -262,27 +262,4 @@ function get_database_sizes() {
     return $sizes;
 }
 
-/**
- * Execute a script from the scripts directory
- * 
- * @param string $script Script name
- * @param array $args Arguments for the script
- * @param array &$output Output of the script
- * @return int Exit code of the script
- */
-function exec_script($script, $args = [], &$output = []) {
-    // Build the command
-    $scriptsDir = dirname(__FILE__) . '/../../scripts/';
-    $command = 'bash ' . escapeshellarg($scriptsDir . $script);
-    
-    // Add arguments
-    foreach ($args as $arg) {
-        $command .= ' ' . escapeshellarg($arg);
-    }
-    
-    // Execute the command
-    $exitCode = 0;
-    exec($command, $output, $exitCode);
-    
-    return $exitCode;
-}
+// The exec_script function is now defined in includes/functions.php

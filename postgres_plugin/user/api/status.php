@@ -7,7 +7,7 @@
 
 // Initialize session and check user permissions
 session_start();
-require_once(dirname(__FILE__) . '/../../../scripts/check_user_auth.php');
+require_once(dirname(__FILE__) . '/../../scripts/check_user_auth.php');
 
 // Set content type to JSON
 header('Content-Type: application/json');
@@ -183,13 +183,4 @@ function getDirectAdminUsername() {
     return $processOwner['name'];
 }
 
-/**
- * Escape a literal value for PostgreSQL
- * 
- * @param string $value Value to escape
- * @return string Escaped value
- */
-function pg_escape_literal($value) {
-    // Simple escape for security - in a real implementation, you'd use pg_escape_literal from PHP's PostgreSQL extension
-    return str_replace("'", "''", $value);
-}
+// The pg_escape_literal function is now defined in includes/functions.php

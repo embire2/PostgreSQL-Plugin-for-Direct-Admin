@@ -7,7 +7,7 @@
 
 // Initialize session and check admin permissions
 session_start();
-require_once(dirname(__FILE__) . '/../../../scripts/check_admin_auth.php');
+require_once(dirname(__FILE__) . '/../../scripts/check_admin_auth.php');
 
 // Set content type to JSON
 header('Content-Type: application/json');
@@ -452,41 +452,7 @@ function get_user_databases($username) {
     return $databases;
 }
 
-/**
- * Escape a literal value for PostgreSQL
- * 
- * @param string $value Value to escape
- * @return string Escaped value
- */
-function pg_escape_literal($value) {
-    // Simple escape for security - in a real implementation, you'd use pg_escape_literal from PHP's PostgreSQL extension
-    return str_replace("'", "''", $value);
-}
-
-/**
- * Execute a script from the scripts directory
- * 
- * @param string $script Script name
- * @param array $args Arguments for the script
- * @param array &$output Output of the script
- * @return int Exit code of the script
- */
-function exec_script($script, $args = [], &$output = []) {
-    // Build the command
-    $scriptsDir = dirname(__FILE__) . '/../../scripts/';
-    $command = 'bash ' . escapeshellarg($scriptsDir . $script);
-    
-    // Add arguments
-    foreach ($args as $arg) {
-        $command .= ' ' . escapeshellarg($arg);
-    }
-    
-    // Execute the command
-    $exitCode = 0;
-    exec($command, $output, $exitCode);
-    
-    return $exitCode;
-}
+// The pg_escape_literal and exec_script functions are now defined in includes/functions.php
 
 /**
  * Generate a random password

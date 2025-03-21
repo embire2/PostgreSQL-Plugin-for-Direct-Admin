@@ -7,7 +7,7 @@
 
 // Initialize session and check admin permissions
 session_start();
-require_once(dirname(__FILE__) . '/../../../scripts/check_admin_auth.php');
+require_once(dirname(__FILE__) . '/../../scripts/check_admin_auth.php');
 
 // Set content type to JSON
 header('Content-Type: application/json');
@@ -722,7 +722,7 @@ function delete_postgresql_parameter($name) {
     // Comment out the parameter in postgresql.conf
     $output = [];
     $exitCode = 0;
-    exec("sudo sed -i 's/^[[:space:]]*$name[[:space:]]*=/#$name=/g' " . escapeshellarg($confFile), $output, $exitCode);
+    exec("sed -i 's/^[[:space:]]*" . $name . "[[:space:]]*=/#" . $name . "=/g' " . escapeshellarg($confFile), $output, $exitCode);
     
     if ($exitCode !== 0) {
         return "Error modifying configuration file: " . implode("\n", $output);
@@ -825,52 +825,4 @@ function get_config_file_content($filename) {
     return $content;
 }
 
-/**
- * Format uptime in a human-readable format
- * 
- * @param int $seconds Uptime in seconds
- * @return string Formatted uptime
- */
-function format_uptime($seconds) {
-    $days = floor($seconds / 86400);
-    $seconds %= 86400;
-    
-    $hours = floor($seconds / 3600);
-    $seconds %= 3600;
-    
-    $minutes = floor($seconds / 60);
-    $seconds %= 60;
-    
-    $result = '';
-    if ($days > 0) {
-        $result .= "$days days, ";
-    }
-    
-    $result .= sprintf('%02d:%02d:%02d', $hours, $minutes, $seconds);
-    
-    return $result;
-}
-
-/**
- * Format duration in a human-readable format
- * 
- * @param int $seconds Duration in seconds
- * @return string Formatted duration
- */
-function format_duration($seconds) {
-    if ($seconds < 60) {
-        return "$seconds seconds";
-    }
-    
-    if ($seconds < 3600) {
-        $minutes = floor($seconds / 60);
-        $secs = $seconds % 60;
-        return "$minutes min $secs sec";
-    }
-    
-    $hours = floor($seconds / 3600);
-    $seconds %= 3600;
-    $minutes = floor($seconds / 60);
-    
-    return "$hours h $minutes min";
-}
+// The format_uptime and format_duration functions are now defined in includes/functions.php
