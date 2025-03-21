@@ -1,0 +1,77 @@
+# -----------------------------
+# PostgreSQL Configuration File
+# -----------------------------
+#
+# This file contains the basic configuration for PostgreSQL.
+# It will be used as a template for the DirectAdmin PostgreSQL plugin.
+
+# CONNECTIONS AND AUTHENTICATION
+# -----------------------------
+listen_addresses = '*'          # Listen on all addresses
+port = 5432                     # Default port
+max_connections = 100           # Maximum number of concurrent connections
+superuser_reserved_connections = 3
+unix_socket_directories = '/var/run/postgresql' # Unix socket location
+
+# RESOURCE USAGE
+# -------------
+shared_buffers = 128MB          # Memory shared across all connections
+work_mem = 4MB                  # Memory for query operations
+maintenance_work_mem = 64MB     # Memory for maintenance operations
+dynamic_shared_memory_type = posix  # Dynamic shared memory type
+
+# WRITE-AHEAD LOG
+# --------------
+wal_level = replica             # Minimal, replica, or logical
+fsync = on                      # Turn on fsync for crash safety
+synchronous_commit = on         # Synchronous commit (on, remote_apply, remote_write, local, off)
+wal_buffers = -1                # Auto-tuned by PostgreSQL
+checkpoint_timeout = 5min       # Max time between checkpoints
+max_wal_size = 1GB              # Maximum WAL size
+min_wal_size = 80MB             # Minimum WAL size
+
+# QUERY TUNING
+# -----------
+random_page_cost = 4.0          # Cost of a non-sequentially fetched page
+effective_cache_size = 4GB      # Estimate of the system cache size
+
+# REPORTING AND LOGGING
+# --------------------
+log_destination = 'stderr'      # Where to log
+logging_collector = on          # Enable capturing log messages
+log_directory = 'log'           # Directory for log files
+log_filename = 'postgresql-%Y-%m-%d_%H%M%S.log' # Log filename pattern
+log_rotation_age = 1d           # Rotate logs based on age
+log_rotation_size = 10MB        # Rotate logs based on size
+log_min_messages = warning      # Minimum log level
+log_min_error_statement = error # Minimum log level for statements with errors
+log_min_duration_statement = -1 # -1 disables logging based on duration
+
+# STATISTICS
+# ---------
+track_activities = on           # Collects information about executing commands
+track_counts = on               # Collect statistics on database activity
+track_io_timing = off           # Collect timing statistics (has performance impact)
+track_functions = none          # Track function execution (none, pl, all)
+stats_temp_directory = 'pg_stat_tmp' # Directory for temporary statistics
+
+# AUTOVACUUM
+# ---------
+autovacuum = on                 # Enable autovacuum subprocess
+log_autovacuum_min_duration = -1 # -1 disables logging autovacuum activity
+autovacuum_max_workers = 3      # Max number of autovacuum subprocesses
+autovacuum_naptime = 1min       # Time between autovacuum runs
+autovacuum_vacuum_threshold = 50 # Min number of row updates before vacuum
+autovacuum_analyze_threshold = 50 # Min number of row updates before analyze
+autovacuum_vacuum_scale_factor = 0.2 # Fraction of table size before vacuum
+autovacuum_analyze_scale_factor = 0.1 # Fraction of table size before analyze
+
+# CLIENT CONNECTION DEFAULTS
+# -------------------------
+datestyle = 'iso, mdy'          # Date/time format
+timezone = 'UTC'                # Use UTC timezone
+lc_messages = 'C'               # Locale for system messages
+lc_monetary = 'C'               # Locale for monetary formatting
+lc_numeric = 'C'                # Locale for number formatting
+lc_time = 'C'                   # Locale for time formatting
+default_text_search_config = 'pg_catalog.english' # Default text search config
