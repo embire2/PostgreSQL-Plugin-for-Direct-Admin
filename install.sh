@@ -157,13 +157,41 @@ fi
 # Make sure config directory exists
 mkdir -p "${CONFIG_PATH}"
 
+# Verify plugin files exist in the destination directory
+log_message "Verifying plugin files..."
+if [ ! -f "${PLUGIN_PATH}/plugin.conf" ]; then
+    log_message "Error: plugin.conf not found in ${PLUGIN_PATH}. Reinstalling files..."
+    # Ensure we have a clean plugin directory
+    rm -rf "${PLUGIN_PATH}"
+    mkdir -p "${PLUGIN_PATH}"
+    cp -rf ./* "${PLUGIN_PATH}/"
+    
+    if [ ! -f "${PLUGIN_PATH}/plugin.conf" ]; then
+        log_message "Critical Error: Failed to install plugin.conf. Installation failed."
+        exit 1
+    fi
+fi
+
 # Register plugin with DirectAdmin
 log_message "Registering plugin with DirectAdmin"
 if ! grep -q "^postgresql_plugin=" "${CONFIG_PATH}/plugins.conf"; then
-    echo "postgresql_plugin=2.1" >> "${CONFIG_PATH}/plugins.conf"
+    echo "postgresql_plugin=2.4" >> "${CONFIG_PATH}/plugins.conf"
 else
-    sed -i 's/^postgresql_plugin=.*/postgresql_plugin=2.1/' "${CONFIG_PATH}/plugins.conf"
+    sed -i 's/^postgresql_plugin=.*/postgresql_plugin=2.4/' "${CONFIG_PATH}/plugins.conf"
 fi
+
+# Verify permissions and fix if necessary
+log_message "Double-checking permissions..."
+find "${PLUGIN_PATH}" -type d -exec chmod 755 {} \;
+find "${PLUGIN_PATH}" -type f -name "*.php" -exec chmod 644 {} \;
+find "${PLUGIN_PATH}" -type f -name "*.html" -exec chmod 644 {} \;
+find "${PLUGIN_PATH}" -type f -name "*.sh" -exec chmod 755 {} \;
+find "${PLUGIN_PATH}" -type f -name "*.js" -exec chmod 644 {} \;
+find "${PLUGIN_PATH}" -type f -name "*.css" -exec chmod 644 {} \;
+
+# Create required directories in DirectAdmin
+mkdir -p "${DA_ROOT}/scripts/custom"
+chmod 755 "${DA_ROOT}/scripts/custom"
 
 # Restart DirectAdmin to apply changes
 log_message "Restarting DirectAdmin to apply changes"
@@ -172,9 +200,26 @@ if [ $? -ne 0 ]; then
     log_message "Warning: Failed to restart DirectAdmin. Please restart it manually."
 fi
 
-log_message "Installation complete. PostgreSQL plugin is now available in DirectAdmin."
-log_message "Admin URL: https://your-server:2222/CMD_PLUGINS/postgresql_plugin"
-log_message "User URL: https://your-server:2222/CMD_PLUGINS/postgresql_plugin"
-log_message "For detailed installation log, see ${LOG_FILE}"
+# Display success message with colorized output
+GREEN='\033[0;32m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+
+echo -e "${GREEN}✓ Installation complete!${NC}"
+echo -e "${GREEN}✓ PostgreSQL Manager v2.4 is now available in DirectAdmin.${NC}"
+echo -e "${BLUE}→ Admin URL: https://your-server:2222/CMD_PLUGINS/postgresql_plugin${NC}"
+echo -e "${BLUE}→ User URL: https://your-server:2222/CMD_PLUGINS/postgresql_plugin${NC}"
+echo -e "${BLUE}→ For detailed installation log, see ${LOG_FILE}${NC}"
+
+# Check if PostgreSQL service is running
+if command -v systemctl &> /dev/null; then
+    if systemctl is-active --quiet postgresql; then
+        echo -e "${GREEN}✓ PostgreSQL service is running.${NC}"
+    else
+        echo -e "${BLUE}→ PostgreSQL service needs to be started: systemctl start postgresql${NC}"
+    fi
+fi
+
+log_message "Installation complete. PostgreSQL plugin v2.4 installed successfully!"
 
 exit 0
