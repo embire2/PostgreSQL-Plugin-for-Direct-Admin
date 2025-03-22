@@ -16,6 +16,12 @@ This plugin integrates PostgreSQL database management into the DirectAdmin contr
   - Create and manage PostgreSQL databases
   - View database credentials
   - Access database statistics
+  
+- **Integration**:
+  - Full DirectAdmin CustomBuild integration
+  - DirectAdmin Plugin Manager support
+  - Automatic updates
+  - User and database synchronization with DirectAdmin accounts
 
 ## Requirements
 
@@ -25,22 +31,50 @@ This plugin integrates PostgreSQL database management into the DirectAdmin contr
 
 ## Installation
 
-### Automatic Installation
+### CustomBuild Installation (Recommended)
 
-1. Download the latest release `.zip` package to your server:
+1. SSH into your server as root
+2. Run CustomBuild commands to install the plugin:
    ```bash
-   wget https://github.com/embire2/PostgreSQL-Plugin-for-Direct-Admin/raw/main/DirectAdmin-PostgreSQLv2_0.zip
+   cd /usr/local/directadmin/custombuild
+   ./build set postgresql yes
+   ./build update
+   ./build postgresql
    ```
 
-2. Unzip the package:
+This will:
+- Download the latest version of the plugin
+- Install PostgreSQL if not already installed
+- Configure PostgreSQL for DirectAdmin integration
+- Install the plugin files in DirectAdmin's plugin directory
+- Register the plugin with DirectAdmin
+- Create necessary hooks for user creation and deletion
+
+### DirectAdmin Plugin Manager Installation
+
+1. Log in to DirectAdmin as admin
+2. Navigate to the Plugin Manager
+3. Click on "Install Plugin from URL"
+4. Enter the plugin URL: `https://codecore.codes/software/postgresql_plugin-2.2.tar.gz`
+5. Click "Install"
+
+The Plugin Manager will handle the installation process automatically.
+
+### Manual Installation with Script
+
+1. Download the latest release package to your server:
    ```bash
-   unzip DirectAdmin-PostgreSQLv2_0.zip -d postgresql_plugin-2.0
+   wget https://codecore.codes/software/postgresql_plugin-2.2.tar.gz
+   ```
+
+2. Extract the package:
+   ```bash
+   tar -xzf postgresql_plugin-2.2.tar.gz
    ```
 
 3. Navigate to the extracted directory:
    ```bash
-   cd postgresql_plugin-2.0
-   cd DirectAdmin-PostgreSQLv2_0
+   cd postgresql_plugin-2.2
    ```
 
 4. Run the installation script:
@@ -55,7 +89,7 @@ The script will:
 - Register the plugin with DirectAdmin
 - Create necessary hooks for user creation and deletion
 
-### Manual Installation
+### Fully Manual Installation
 
 1. Download and unzip the plugin package:
    ```bash
@@ -113,9 +147,31 @@ After installation, you can access the plugin at:
 
 ## Uninstallation
 
-### Automatic Uninstallation
+### CustomBuild Uninstallation (Recommended)
 
-1. Navigate to the plugin package directory  
+1. SSH into your server as root
+2. Run CustomBuild commands to uninstall the plugin:
+   ```bash
+   cd /usr/local/directadmin/custombuild
+   ./build set postgresql no
+   ./build postgresql uninstall
+   ```
+
+This method ensures a clean removal with proper cleanup.
+
+### DirectAdmin Plugin Manager Uninstallation
+
+1. Log in to DirectAdmin as admin
+2. Navigate to the Plugin Manager
+3. Locate the PostgreSQL plugin in the list
+4. Click "Uninstall" next to the plugin
+
+### Script Uninstallation
+
+1. Navigate to the plugin directory
+   ```bash
+   cd /usr/local/directadmin/plugins/postgresql_plugin
+   ```
 2. Run the uninstallation script:
    ```bash
    bash uninstall.sh
@@ -160,10 +216,39 @@ The script will prompt you to choose whether to uninstall PostgreSQL and remove 
 
 Check the installation logs at `/usr/local/directadmin/logs/postgresql_install.log` for details about any installation issues.
 
-Common issues:
+### Common Issues
+
 - **Permission denied errors**: Ensure all script files are executable (`chmod +x`)
 - **PostgreSQL connection errors**: Check PostgreSQL is running and properly configured
 - **Hook not working**: Verify the hook symbolic links are correct
+- **CustomBuild errors**: Check CustomBuild logs in `/usr/local/directadmin/custombuild/custom_build.log`
+
+### CustomBuild Troubleshooting
+
+If you encounter issues with CustomBuild installation:
+
+1. Update CustomBuild database:
+   ```bash
+   cd /usr/local/directadmin/custombuild
+   ./build update
+   ```
+
+2. Verify the plugin is set correctly:
+   ```bash
+   ./build show|grep postgresql
+   ```
+
+3. Check CustomBuild cache:
+   ```bash
+   ./build cache
+   ```
+
+4. For more detailed information, run:
+   ```bash
+   ./build postgresql debug
+   ```
+
+For a more comprehensive guide to troubleshooting CustomBuild-related issues, see [CUSTOMBUILD_INTEGRATION.md](CUSTOMBUILD_INTEGRATION.md).
 
 ## Support
 
