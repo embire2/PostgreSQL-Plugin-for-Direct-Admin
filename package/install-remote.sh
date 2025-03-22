@@ -12,6 +12,9 @@ PLUGIN_NAME="postgresql_plugin"
 PLUGIN_PATH="${DA_ROOT}/plugins/${PLUGIN_NAME}"
 LOG_FILE="${DA_ROOT}/logs/postgresql_install.log"
 
+# Create logs directory if it doesn't exist
+mkdir -p "${DA_ROOT}/logs"
+
 # Initialize log file
 echo "[$( date '+%Y-%m-%d %H:%M:%S' )] Starting PostgreSQL plugin installation from GitHub" > $LOG_FILE
 
