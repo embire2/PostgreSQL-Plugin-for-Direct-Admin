@@ -1,0 +1,238 @@
+/* PostgreSQL DirectAdmin Plugin - Admin Stylesheet */
+
+/* General styling */
+body {
+  font-size: .875rem;
+  background-color: #f8f9fa;
+}
+
+.feather {
+  width: 16px;
+  height: 16px;
+  vertical-align: text-bottom;
+}
+
+/* Sidebar styling */
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100; /* Behind the navbar */
+  padding: 48px 0 0; /* Height of navbar */
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+}
+
+.sidebar-sticky {
+  position: relative;
+  top: 0;
+  height: calc(100vh - 48px);
+  padding-top: .5rem;
+  overflow-x: hidden;
+  overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+}
+
+@supports ((position: -webkit-sticky) or (position: sticky)) {
+  .sidebar-sticky {
+    position: -webkit-sticky;
+    position: sticky;
+  }
+}
+
+.sidebar .nav-link {
+  font-weight: 500;
+  color: #333;
+}
+
+.sidebar .nav-link .feather {
+  margin-right: 4px;
+  color: #999;
+}
+
+.sidebar .nav-link.active {
+  color: #007bff;
+}
+
+.sidebar .nav-link:hover .feather,
+.sidebar .nav-link.active .feather {
+  color: inherit;
+}
+
+.sidebar-heading {
+  font-size: .75rem;
+  text-transform: uppercase;
+}
+
+/* Navbar styling */
+.navbar-brand {
+  padding-top: .75rem;
+  padding-bottom: .75rem;
+  font-size: 1rem;
+  background-color: rgba(0, 0, 0, .25);
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
+}
+
+.navbar .navbar-toggler {
+  top: .25rem;
+  right: 1rem;
+}
+
+/* Content styling */
+[role="main"] {
+  padding-top: 133px; /* Space for fixed navbar */
+}
+
+@media (min-width: 768px) {
+  [role="main"] {
+    padding-top: 48px; /* Space for fixed navbar */
+  }
+}
+
+/* Status indicators */
+.status-indicator {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.status-running {
+  background-color: #28a745;
+  box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.3);
+}
+
+.status-stopped {
+  background-color: #dc3545;
+  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.3);
+}
+
+.status-warning {
+  background-color: #ffc107;
+  box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.3);
+}
+
+/* Card styling enhancements */
+.card {
+  border-radius: .5rem;
+  transition: all 0.3s;
+}
+
+.card:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transform: translateY(-2px);
+}
+
+.card-header {
+  background-color: rgba(0, 123, 255, 0.05);
+  border-bottom: 1px solid rgba(0, 123, 255, 0.1);
+}
+
+/* Table enhancements */
+.table-responsive {
+  border-radius: .25rem;
+  overflow: hidden;
+}
+
+.table th {
+  border-top: none;
+  background-color: #f8f9fa;
+  font-weight: 600;
+}
+
+.table-sm td, .table-sm th {
+  padding: 0.5rem;
+}
+
+/* Button group improvements */
+.btn-group-sm > .btn, .btn-sm {
+  border-radius: .25rem;
+}
+
+.btn-outline-primary:hover, .btn-outline-secondary:hover, .btn-outline-danger:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Form improvements */
+.form-control {
+  border-radius: .25rem;
+}
+
+.form-control:focus {
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.15);
+}
+
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.col-form-label {
+  font-weight: 500;
+}
+
+/* Modal enhancements */
+.modal-header {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #eee;
+}
+
+.modal-footer {
+  background-color: #f8f9fa;
+  border-top: 1px solid #eee;
+}
+
+/* Alert customizations */
+.alert {
+  border-radius: .25rem;
+}
+
+.alert-success {
+  background-color: rgba(40, 167, 69, 0.1);
+  border-color: rgba(40, 167, 69, 0.2);
+  color: #155724;
+}
+
+.alert-danger {
+  background-color: rgba(220, 53, 69, 0.1);
+  border-color: rgba(220, 53, 69, 0.2);
+  color: #721c24;
+}
+
+/* Badge styling */
+.badge {
+  font-weight: 500;
+  padding: .35em .65em;
+}
+
+/* Progress bar styling */
+.progress {
+  height: 0.6rem;
+  border-radius: 1rem;
+}
+
+/* Utilities */
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.vertical-align-middle {
+  vertical-align: middle;
+}
+
+/* Code styling */
+pre {
+  background-color: #f5f5f5;
+  padding: 1rem;
+  border-radius: .25rem;
+  border: 1px solid #ddd;
+}
+
+/* Custom animation for loading */
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

@@ -1,0 +1,80 @@
+{
+    "name": "PostgreSQL Manager",
+    "id": "postgresql_plugin",
+    "version": "2.2",
+    "author": "CodeCore",
+    "url": "https://codecore.codes",
+    "description": "A comprehensive PostgreSQL management plugin for DirectAdmin that provides complete control over PostgreSQL databases and users.",
+    "requirements": {
+        "da_version": "1.60",
+        "php_version": "7.3"
+    },
+    "setup": {
+        "install": {
+            "bash": "/usr/local/directadmin/plugins/postgresql_plugin/install.sh"
+        },
+        "uninstall": {
+            "bash": "/usr/local/directadmin/plugins/postgresql_plugin/uninstall.sh"
+        },
+        "update": {
+            "bash": "/usr/local/directadmin/plugins/postgresql_plugin/update.sh"
+        }
+    },
+    "menu": {
+        "admin": {
+            "label": "PostgreSQL",
+            "url": "/CMD_PLUGINS/postgresql_plugin",
+            "icon": "database",
+            "order": 3
+        },
+        "user": {
+            "label": "PostgreSQL",
+            "url": "/CMD_PLUGINS/postgresql_plugin",
+            "icon": "database",
+            "order": 3
+        }
+    },
+    "features": [
+        "Database management",
+        "User management",
+        "Privilege control",
+        "Backup and restore",
+        "Performance monitoring"
+    ],
+    "changelog": [
+        {
+            "version": "2.2",
+            "changes": [
+                "Added CustomBuild integration",
+                "Improved installation success message with database credentials",
+                "Fixed log directory creation bug",
+                "Added better error handling",
+                "Enhanced plugin menu integration"
+            ]
+        },
+        {
+            "version": "2.1",
+            "changes": [
+                "Added support for DirectAdmin 1.63",
+                "Improved database connection security",
+                "Fixed compatibility issues with PHP 8",
+                "Enhanced user interface"
+            ]
+        },
+        {
+            "version": "2.0",
+            "changes": [
+                "Initial public release",
+                "Complete PostgreSQL management integration",
+                "Admin and user interfaces",
+                "Database and user creation",
+                "Automated installation"
+            ]
+        }
+    ],
+    "support": {
+        "email": "support@codecore.codes",
+        "website": "https://codecore.codes/support",
+        "kb": "https://codecore.codes/kb/postgresql-plugin"
+    }
+}
