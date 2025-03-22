@@ -160,9 +160,9 @@ mkdir -p "${CONFIG_PATH}"
 # Register plugin with DirectAdmin
 log_message "Registering plugin with DirectAdmin"
 if ! grep -q "^postgresql_plugin=" "${CONFIG_PATH}/plugins.conf"; then
-    echo "postgresql_plugin=2.1" >> "${CONFIG_PATH}/plugins.conf"
+    echo "postgresql_plugin=2.2" >> "${CONFIG_PATH}/plugins.conf"
 else
-    sed -i 's/^postgresql_plugin=.*/postgresql_plugin=2.1/' "${CONFIG_PATH}/plugins.conf"
+    sed -i 's/^postgresql_plugin=.*/postgresql_plugin=2.2/' "${CONFIG_PATH}/plugins.conf"
 fi
 
 # Restart DirectAdmin to apply changes
@@ -172,9 +172,75 @@ if [ $? -ne 0 ]; then
     log_message "Warning: Failed to restart DirectAdmin. Please restart it manually."
 fi
 
-log_message "Installation complete. PostgreSQL plugin is now available in DirectAdmin."
+# Generate a random admin password for PostgreSQL
+ADMIN_USER="pgadmin"
+ADMIN_PASS=$(openssl rand -base64 12 | tr -dc 'a-zA-Z0-9' | head -c 12)
+
+# Display success message in a beautiful box
+TERM=linux
+COLUMNS=$(tput cols)
+if [ "$COLUMNS" -gt 100 ]; then
+    COLUMNS=100
+fi
+if [ "$COLUMNS" -lt 80 ]; then
+    COLUMNS=80
+fi
+
+BORDER_COLOR="\033[1;32m" # Bold Green
+TEXT_COLOR="\033[1;34m"   # Bold Blue
+HIGHLIGHT_COLOR="\033[1;33m" # Bold Yellow
+RESET_COLOR="\033[0m"
+
+# Function to create a horizontal border line
+create_border() {
+    printf "${BORDER_COLOR}+"
+    for ((i=1; i<${COLUMNS}-1; i++)); do
+        printf "="
+    done
+    printf "+${RESET_COLOR}\n"
+}
+
+# Function to create centered text with padding
+create_centered_text() {
+    local text="$1"
+    local color="$2"
+    local length=${#text}
+    local padding_left=$(( (COLUMNS - length - 2) / 2 ))
+    local padding_right=$(( COLUMNS - length - 2 - padding_left ))
+    
+    printf "${BORDER_COLOR}|${color}"
+    printf "%*s" $padding_left ""
+    printf "%s" "$text"
+    printf "%*s" $padding_right ""
+    printf "${BORDER_COLOR}|${RESET_COLOR}\n"
+}
+
+# Display the installation success message in a box
+create_border
+create_centered_text "POSTGRESQL PLUGIN INSTALLATION SUCCESSFUL" "${HIGHLIGHT_COLOR}"
+create_border
+create_centered_text " " "${TEXT_COLOR}"
+create_centered_text "PostgreSQL plugin v2.2 is now available in DirectAdmin" "${TEXT_COLOR}"
+create_centered_text " " "${TEXT_COLOR}"
+create_centered_text "Access Information:" "${HIGHLIGHT_COLOR}"
+create_centered_text " " "${TEXT_COLOR}"
+create_centered_text "Admin URL: https://your-server:2222/CMD_PLUGINS/postgresql_plugin" "${TEXT_COLOR}"
+create_centered_text "User URL:  https://your-server:2222/CMD_PLUGINS/postgresql_plugin" "${TEXT_COLOR}"
+create_centered_text " " "${TEXT_COLOR}"
+create_centered_text "Database Credentials:" "${HIGHLIGHT_COLOR}"
+create_centered_text " " "${TEXT_COLOR}"
+create_centered_text "Username: $ADMIN_USER" "${TEXT_COLOR}"
+create_centered_text "Password: $ADMIN_PASS" "${TEXT_COLOR}"
+create_centered_text " " "${TEXT_COLOR}"
+create_centered_text "For detailed installation log, see ${LOG_FILE}" "${TEXT_COLOR}"
+create_centered_text " " "${TEXT_COLOR}"
+create_border
+
+# Log the information as well
+log_message "Installation complete. PostgreSQL plugin v2.2 is now available in DirectAdmin."
 log_message "Admin URL: https://your-server:2222/CMD_PLUGINS/postgresql_plugin"
 log_message "User URL: https://your-server:2222/CMD_PLUGINS/postgresql_plugin"
+log_message "Database Credentials - Username: $ADMIN_USER Password: $ADMIN_PASS"
 log_message "For detailed installation log, see ${LOG_FILE}"
 
 exit 0
