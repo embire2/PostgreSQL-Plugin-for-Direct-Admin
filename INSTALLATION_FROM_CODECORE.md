@@ -72,9 +72,23 @@ This script will:
 - Install the plugin files in DirectAdmin's plugin directory
 - Register the plugin with DirectAdmin
 - Create necessary hooks for user management
+- Install CustomBuild integration files (new in v2.3)
 - Restart DirectAdmin to apply changes
 
-### Method 2: One-Line Installation (Advanced)
+### Method 2: CustomBuild Installation (New in v2.3)
+
+If you're using DirectAdmin with CustomBuild, you can now install the plugin directly through CustomBuild:
+
+```bash
+cd /usr/local/directadmin/custombuild
+./build set postgresql yes
+./build update
+./build postgresql
+```
+
+This method leverages the new CustomBuild integration in version 2.3 for seamless installation.
+
+### Method 3: One-Line Installation (Advanced)
 
 For a quick, one-line installation that automatically downloads and installs the plugin:
 
@@ -186,6 +200,13 @@ To upgrade the plugin to a newer version:
 1. Download the new version
 2. Extract it to a temporary location
 3. Run the installation script, which will update the existing installation
+
+### What's New in Version 2.3
+
+- **CustomBuild Integration**: Full support for DirectAdmin's CustomBuild system, making installation easier through the CustomBuild interface
+- **Extended OS Support**: Added compatibility with AlmaLinux 9, Rocky Linux 9, Debian 12, and Ubuntu 24.04
+- **Improved Installation**: Enhanced detection of existing PostgreSQL installations
+- **Automatic CustomBuild Configuration**: The plugin now automatically configures CustomBuild with PostgreSQL options
 
 ---
 
