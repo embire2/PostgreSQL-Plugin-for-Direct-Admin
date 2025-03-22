@@ -24,12 +24,22 @@ cp install.sh "$TEMP_DIR/"
 cp uninstall.sh "$TEMP_DIR/"
 cp README.md "$TEMP_DIR/"
 
+# Copy CustomBuild files
+echo "Copying CustomBuild files..."
+mkdir -p "$TEMP_DIR/custombuild/custom"
+cp custombuild/custom/postgresql.conf "$TEMP_DIR/custombuild/custom/"
+cp custombuild/custom/postgresql_install.sh "$TEMP_DIR/custombuild/custom/"
+cp custombuild/custom/postgresql_uninstall.sh "$TEMP_DIR/custombuild/custom/"
+cp custombuild/options.conf "$TEMP_DIR/custombuild/"
+
 # Set execution permissions
 chmod +x "$TEMP_DIR/install.sh"
 chmod +x "$TEMP_DIR/uninstall.sh"
 chmod +x "$TEMP_DIR/exec/"*.sh
 chmod +x "$TEMP_DIR/hooks/"*.sh
 chmod +x "$TEMP_DIR/scripts/"*.sh
+chmod +x "$TEMP_DIR/custombuild/custom/postgresql_install.sh"
+chmod +x "$TEMP_DIR/custombuild/custom/postgresql_uninstall.sh"
 
 # Create tar.gz archive
 echo "Creating package archive..."

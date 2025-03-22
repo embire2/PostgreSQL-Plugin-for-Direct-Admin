@@ -10,6 +10,7 @@ PLUGIN_NAME="postgresql_plugin"
 PLUGIN_PATH="${DA_ROOT}/plugins/${PLUGIN_NAME}"
 CONFIG_PATH="${DA_ROOT}/conf"
 LOG_FILE="${DA_ROOT}/logs/postgresql_install.log"
+CUSTOMBUILD_PATH="${DA_ROOT}/custombuild"
 
 # Create logs directory if it doesn't exist
 mkdir -p "${DA_ROOT}/logs"
@@ -22,6 +23,16 @@ log_message() {
     echo "[$( date '+%Y-%m-%d %H:%M:%S' )] $1" >> $LOG_FILE
     echo "$1"
 }
+
+# Detect if being installed via CustomBuild
+VIA_CUSTOMBUILD=0
+if [ -d "$CUSTOMBUILD_PATH" ] && [ -f "/proc/$$/cmdline" ]; then
+    CMDLINE=$(cat /proc/$$/cmdline | tr '\0' ' ')
+    if echo "$CMDLINE" | grep -q "custombuild"; then
+        VIA_CUSTOMBUILD=1
+        log_message "Detected installation via CustomBuild"
+    fi
+fi
 
 # Check if running as root
 if [ "$(id -u)" != "0" ]; then
@@ -175,6 +186,58 @@ fi
 # Generate a random admin password for PostgreSQL
 ADMIN_USER="pgadmin"
 ADMIN_PASS=$(openssl rand -base64 12 | tr -dc 'a-zA-Z0-9' | head -c 12)
+
+# Copy CustomBuild configuration files if they exist
+if [ -d "./custombuild" ]; then
+    log_message "Installing CustomBuild configuration files..."
+    
+    # Create CustomBuild directories
+    mkdir -p "${CUSTOMBUILD_PATH}/custom"
+    
+    # Copy CustomBuild files
+    if [ -f "./custombuild/custom/postgresql.conf" ]; then
+        cp -f "./custombuild/custom/postgresql.conf" "${CUSTOMBUILD_PATH}/custom/"
+        log_message "Installed CustomBuild configuration: postgresql.conf"
+    fi
+    
+    if [ -f "./custombuild/custom/postgresql_install.sh" ]; then
+        cp -f "./custombuild/custom/postgresql_install.sh" "${CUSTOMBUILD_PATH}/custom/"
+        chmod +x "${CUSTOMBUILD_PATH}/custom/postgresql_install.sh"
+        log_message "Installed CustomBuild script: postgresql_install.sh"
+    fi
+    
+    if [ -f "./custombuild/custom/postgresql_uninstall.sh" ]; then
+        cp -f "./custombuild/custom/postgresql_uninstall.sh" "${CUSTOMBUILD_PATH}/custom/"
+        chmod +x "${CUSTOMBUILD_PATH}/custom/postgresql_uninstall.sh"
+        log_message "Installed CustomBuild script: postgresql_uninstall.sh"
+    fi
+    
+    if [ -f "./custombuild/options.conf" ]; then
+        # Extract the postgresql section from the options.conf file
+        grep -A 10 "\[postgresql_plugin\]" "./custombuild/options.conf" > "/tmp/postgresql_options.conf"
+        
+        # Check if the main options.conf file exists
+        if [ -f "${CUSTOMBUILD_PATH}/options.conf" ]; then
+            # Remove any existing postgresql section
+            sed -i '/\[postgresql_plugin\]/,/\[/d' "${CUSTOMBUILD_PATH}/options.conf"
+            
+            # Add our postgresql section
+            cat "/tmp/postgresql_options.conf" >> "${CUSTOMBUILD_PATH}/options.conf"
+        else
+            # Create a new options.conf file
+            cp -f "./custombuild/options.conf" "${CUSTOMBUILD_PATH}/"
+        fi
+        
+        rm -f "/tmp/postgresql_options.conf"
+        log_message "Installed CustomBuild options: options.conf"
+    fi
+    
+    # Rebuild CustomBuild cache if available
+    if [ -x "${CUSTOMBUILD_PATH}/build" ]; then
+        "${CUSTOMBUILD_PATH}/build" cache
+        log_message "CustomBuild cache rebuilt."
+    fi
+fi
 
 # Display success message in a beautiful box
 TERM=linux
