@@ -40,6 +40,7 @@ This plugin integrates PostgreSQL database management into the DirectAdmin contr
 3. Navigate to the extracted directory:
    ```bash
    cd postgresql_plugin-2.0
+   cd DirectAdmin-PostgreSQLv2_0
    ```
 
 4. Run the installation script:
