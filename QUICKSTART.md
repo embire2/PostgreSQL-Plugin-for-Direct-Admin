@@ -21,13 +21,13 @@ If you prefer to do it step-by-step:
 1. **Download** the plugin package:
    ```bash
    cd /usr/src
-   wget https://codecore.codes/software/postgresql_plugin-2.1.tar.gz
+   wget https://codecore.codes/software/postgresql_plugin-2.2.tar.gz
    ```
 
 2. **Extract** the package:
    ```bash
-   tar -xzf postgresql_plugin-2.1.tar.gz
-   cd postgresql_plugin-2.1
+   tar -xzf postgresql_plugin-2.2.tar.gz
+   cd postgresql_plugin-2.2
    ```
 
 3. **Install** the plugin:

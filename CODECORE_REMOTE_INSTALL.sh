@@ -5,7 +5,7 @@
 #
 
 # Define constants
-DOWNLOAD_URL="https://codecore.codes/software/postgresql_plugin-2.1.tar.gz"
+DOWNLOAD_URL="https://codecore.codes/software/postgresql_plugin-2.2.tar.gz"
 TEMP_DIR="/tmp/postgresql_plugin"
 DA_ROOT="/usr/local/directadmin"
 LOG_FILE="${DA_ROOT}/logs/postgresql_install.log"

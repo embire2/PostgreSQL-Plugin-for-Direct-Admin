@@ -28,9 +28,9 @@ Download and install the plugin directly from our website:
 
 ```bash
 cd /usr/src
-wget https://codecore.codes/software/postgresql_plugin-2.1.tar.gz
-tar -xzf postgresql_plugin-2.1.tar.gz
-cd postgresql_plugin-2.1
+wget https://codecore.codes/software/postgresql_plugin-2.2.tar.gz
+tar -xzf postgresql_plugin-2.2.tar.gz
+cd postgresql_plugin-2.2
 bash install.sh
 ```
 
@@ -69,9 +69,9 @@ Choose one of the following methods:
 
 ```bash
 cd /usr/src
-wget https://codecore.codes/software/postgresql_plugin-2.1.tar.gz
-tar -xzf postgresql_plugin-2.1.tar.gz
-cd postgresql_plugin-2.1
+wget https://codecore.codes/software/postgresql_plugin-2.2.tar.gz
+tar -xzf postgresql_plugin-2.2.tar.gz
+cd postgresql_plugin-2.2
 ```
 
 #### Option B: Clone from GitHub
@@ -165,7 +165,7 @@ If you encounter any issues during installation:
 To uninstall the plugin:
 
 ```bash
-cd /usr/src/postgresql_plugin-2.1  # or the directory where you installed from
+cd /usr/src/postgresql_plugin-2.2  # or the directory where you installed from
 bash uninstall.sh
 ```
 
@@ -195,6 +195,11 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ---
 
 ## Changelog
+
+### Version 2.2
+- Added installation success message with login credentials
+- Enhanced user experience with beautiful command-line output
+- Improved database connection display after installation
 
 ### Version 2.1
 - Fixed issue with log directory creation
