@@ -5,7 +5,7 @@
 
 # Define variables
 PLUGIN_NAME="postgresql_plugin"
-VERSION="2.2"
+VERSION="2.3"
 PACKAGE_NAME="${PLUGIN_NAME}-${VERSION}"
 TEMP_DIR="/tmp/${PACKAGE_NAME}"
 OUTPUT_DIR="/tmp"

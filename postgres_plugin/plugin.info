@@ -1,5 +1,5 @@
 NAME="PostgreSQL Manager"
-VERSION="2.2"
+VERSION="2.3"
 DESCRIPTION="A comprehensive PostgreSQL management plugin for DirectAdmin that provides complete control over PostgreSQL databases and users."
 AUTHOR="CodeCore"
 EMAIL="info@codecore.codes"

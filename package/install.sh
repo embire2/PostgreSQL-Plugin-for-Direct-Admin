@@ -180,9 +180,9 @@ mkdir -p "${CONFIG_PATH}"
 # Register plugin with DirectAdmin
 log_message "Registering plugin with DirectAdmin"
 if ! grep -q "^postgresql_plugin=" "${CONFIG_PATH}/plugins.conf"; then
-    echo "postgresql_plugin=2.2" >> "${CONFIG_PATH}/plugins.conf"
+    echo "postgresql_plugin=2.3" >> "${CONFIG_PATH}/plugins.conf"
 else
-    sed -i 's/^postgresql_plugin=.*/postgresql_plugin=2.2/' "${CONFIG_PATH}/plugins.conf"
+    sed -i 's/^postgresql_plugin=.*/postgresql_plugin=2.3/' "${CONFIG_PATH}/plugins.conf"
 fi
 
 # Restart DirectAdmin to apply changes
@@ -292,7 +292,7 @@ create_border
 create_centered_text "POSTGRESQL PLUGIN INSTALLATION SUCCESSFUL" "${HIGHLIGHT_COLOR}"
 create_border
 create_centered_text " " "${TEXT_COLOR}"
-create_centered_text "PostgreSQL plugin v2.2 is now available in DirectAdmin" "${TEXT_COLOR}"
+create_centered_text "PostgreSQL plugin v2.3 is now available in DirectAdmin" "${TEXT_COLOR}"
 create_centered_text " " "${TEXT_COLOR}"
 create_centered_text "Access Information:" "${HIGHLIGHT_COLOR}"
 create_centered_text " " "${TEXT_COLOR}"
@@ -309,7 +309,7 @@ create_centered_text " " "${TEXT_COLOR}"
 create_border
 
 # Log the information as well
-log_message "Installation complete. PostgreSQL plugin v2.2 is now available in DirectAdmin."
+log_message "Installation complete. PostgreSQL plugin v2.3 is now available in DirectAdmin."
 log_message "Admin URL: https://your-server:2222/CMD_PLUGINS/postgresql_plugin"
 log_message "User URL: https://your-server:2222/CMD_PLUGINS/postgresql_plugin"
 log_message "Database Credentials - Username: $ADMIN_USER Password: $ADMIN_PASS"
