@@ -8,11 +8,11 @@ This guide provides detailed step-by-step instructions for downloading and insta
 
 The PostgreSQL plugin for DirectAdmin is available through the following methods:
 
-### Option 1: Direct Download from cloudcore.codes (Recommended)
+### Option 1: Direct Download from codecore.codes (Recommended)
 
 Download the latest version directly from our website:
 
-**URL**: [https://cloudcore.codes/software/postgresql_plugin-2.4.tar.gz](https://cloudcore.codes/software/postgresql_plugin-2.4.tar.gz)
+**URL**: [https://codecore.codes/software](https://codecore.codes/software)
 
 ### Option 2: GitHub Repository
 
@@ -38,7 +38,7 @@ Before installing, ensure your server meets these requirements:
 
 ## Installation Methods
 
-### Method 1: Installation from cloudcore.codes Package (Recommended)
+### Method 1: Installation from codecore.codes Package (Recommended)
 
 #### Step 1: Download the Plugin Package
 
@@ -46,7 +46,7 @@ Connect to your server via SSH and download the plugin package:
 
 ```bash
 cd /usr/src
-wget https://cloudcore.codes/software/postgresql_plugin-2.4.tar.gz
+wget https://codecore.codes/software/postgresql_plugin-2.4.tar.gz
 ```
 
 #### Step 2: Extract the Package
@@ -104,7 +104,7 @@ apt update
 
 ```bash
 cd /usr/src
-wget https://cloudcore.codes/software/postgresql_plugin-2.4.tar.gz
+wget https://codecore.codes/software/postgresql_plugin-2.4.tar.gz
 tar -xzf postgresql_plugin-2.4.tar.gz
 cd postgresql_plugin-2.4
 bash install.sh
@@ -117,7 +117,7 @@ If you're using DirectAdmin with CustomBuild, you can install the plugin directl
 ```bash
 # First copy the CustomBuild files
 cd /usr/src
-wget https://cloudcore.codes/software/postgresql_plugin-2.4.tar.gz
+wget https://codecore.codes/software/postgresql_plugin-2.4.tar.gz
 tar -xzf postgresql_plugin-2.4.tar.gz
 cd postgresql_plugin-2.4
 cp -rf custombuild/custom/* /usr/local/directadmin/custombuild/custom/
@@ -136,13 +136,13 @@ This method leverages the CustomBuild integration for seamless installation.
 For a quick, one-line installation that automatically downloads and installs the plugin:
 
 ```bash
-curl -sSL https://cloudcore.codes/software/install-remote.sh | bash
+curl -sSL https://codecore.codes/software/install-remote.sh | bash
 ```
 
 Or if you prefer using wget:
 
 ```bash
-wget -O - https://cloudcore.codes/software/install-remote.sh | bash
+wget -O - https://codecore.codes/software/install-remote.sh | bash
 ```
 
 ## Post-Installation Verification
@@ -283,7 +283,7 @@ If you continue to experience issues with the installation or usage of the plugi
 
 1. Check our [GitHub repository](https://github.com/yourusername/directadmin-postgresql-plugin) for known issues
 2. Open a new issue on GitHub with detailed information about your problem
-3. Contact us through our website: [cloudcore.codes](https://cloudcore.codes)
+3. Contact us through our website: [codecore.codes](https://codecore.codes)
 
 ## Upgrading
 
