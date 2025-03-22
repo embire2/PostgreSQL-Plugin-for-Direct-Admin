@@ -5,10 +5,13 @@
 #
 
 # Define constants
-DOWNLOAD_URL="https://codecore.codes/software/postgresql_plugin-2.0.tar.gz"
+DOWNLOAD_URL="https://codecore.codes/software/postgresql_plugin-2.1.tar.gz"
 TEMP_DIR="/tmp/postgresql_plugin"
 DA_ROOT="/usr/local/directadmin"
 LOG_FILE="${DA_ROOT}/logs/postgresql_install.log"
+
+# Create logs directory if it doesn't exist
+mkdir -p "${DA_ROOT}/logs"
 
 # Initialize log file
 echo "[$( date '+%Y-%m-%d %H:%M:%S' )] Starting PostgreSQL plugin installation from codecore.codes" > $LOG_FILE

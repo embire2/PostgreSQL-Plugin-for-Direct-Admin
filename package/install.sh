@@ -11,6 +11,9 @@ PLUGIN_PATH="${DA_ROOT}/plugins/${PLUGIN_NAME}"
 CONFIG_PATH="${DA_ROOT}/conf"
 LOG_FILE="${DA_ROOT}/logs/postgresql_install.log"
 
+# Create logs directory if it doesn't exist
+mkdir -p "${DA_ROOT}/logs"
+
 # Initialize log file
 echo "[$( date '+%Y-%m-%d %H:%M:%S' )] Starting PostgreSQL plugin installation" > $LOG_FILE
 
@@ -151,12 +154,15 @@ else
     log_message "Warning: PostgreSQL configuration script not found."
 fi
 
+# Make sure config directory exists
+mkdir -p "${CONFIG_PATH}"
+
 # Register plugin with DirectAdmin
 log_message "Registering plugin with DirectAdmin"
 if ! grep -q "^postgresql_plugin=" "${CONFIG_PATH}/plugins.conf"; then
-    echo "postgresql_plugin=2.0" >> "${CONFIG_PATH}/plugins.conf"
+    echo "postgresql_plugin=2.1" >> "${CONFIG_PATH}/plugins.conf"
 else
-    sed -i 's/^postgresql_plugin=.*/postgresql_plugin=2.0/' "${CONFIG_PATH}/plugins.conf"
+    sed -i 's/^postgresql_plugin=.*/postgresql_plugin=2.1/' "${CONFIG_PATH}/plugins.conf"
 fi
 
 # Restart DirectAdmin to apply changes

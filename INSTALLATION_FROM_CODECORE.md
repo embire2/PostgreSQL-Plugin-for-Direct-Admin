@@ -12,7 +12,7 @@ The PostgreSQL plugin for DirectAdmin is available through the following methods
 
 Download the latest version directly from our website:
 
-**URL**: [https://codecore.codes/software/postgresql_plugin-2.0.tar.gz](https://codecore.codes/software/postgresql_plugin-2.0.tar.gz)
+**URL**: [https://codecore.codes/software/postgresql_plugin-2.1.tar.gz](https://codecore.codes/software/postgresql_plugin-2.1.tar.gz)
 
 ### Option 2: GitHub Repository
 
@@ -46,7 +46,7 @@ Connect to your server via SSH and download the plugin package:
 
 ```bash
 cd /usr/src
-wget https://codecore.codes/software/postgresql_plugin-2.0.tar.gz
+wget https://codecore.codes/software/postgresql_plugin-2.1.tar.gz
 ```
 
 #### Step 2: Extract the Package
@@ -54,8 +54,8 @@ wget https://codecore.codes/software/postgresql_plugin-2.0.tar.gz
 Extract the downloaded package:
 
 ```bash
-tar -xzf postgresql_plugin-2.0.tar.gz
-cd postgresql_plugin-2.0
+tar -xzf postgresql_plugin-2.1.tar.gz
+cd postgresql_plugin-2.1
 ```
 
 #### Step 3: Run the Installation Script
@@ -163,7 +163,7 @@ If you encounter any issues during or after installation, check the following:
 If you need to uninstall the plugin:
 
 ```bash
-cd /usr/src/postgresql_plugin-2.0
+cd /usr/src/postgresql_plugin-2.1
 bash uninstall.sh
 ```
 

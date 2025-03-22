@@ -28,9 +28,9 @@ Download and install the plugin directly from our website:
 
 ```bash
 cd /usr/src
-wget https://codecore.codes/software/postgresql_plugin-2.0.tar.gz
-tar -xzf postgresql_plugin-2.0.tar.gz
-cd postgresql_plugin-2.0
+wget https://codecore.codes/software/postgresql_plugin-2.1.tar.gz
+tar -xzf postgresql_plugin-2.1.tar.gz
+cd postgresql_plugin-2.1
 bash install.sh
 ```
 
