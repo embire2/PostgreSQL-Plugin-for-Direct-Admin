@@ -18,6 +18,15 @@ mkdir -p "${DA_ROOT}/logs"
 # Initialize log file
 echo "[$( date '+%Y-%m-%d %H:%M:%S' )] Starting PostgreSQL plugin installation" > $LOG_FILE
 
+# CustomBuild detection
+IS_CUSTOMBUILD=0
+if [ -d "$CUSTOMBUILD_PATH" ] && [ -f "$CUSTOMBUILD_PATH/options.conf" ]; then
+    if grep -q "postgresql=yes" "$CUSTOMBUILD_PATH/options.conf"; then
+        IS_CUSTOMBUILD=1
+        echo "[$( date '+%Y-%m-%d %H:%M:%S' )] Detected CustomBuild installation" >> $LOG_FILE
+    fi
+fi
+
 # Function to log messages
 log_message() {
     echo "[$( date '+%Y-%m-%d %H:%M:%S' )] $1" >> $LOG_FILE
