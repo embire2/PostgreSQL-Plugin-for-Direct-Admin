@@ -1,3 +1,4 @@
+
 # PostgreSQL Plugin for DirectAdmin
 
 This plugin integrates PostgreSQL database management into the DirectAdmin control panel, allowing administrators and users to manage PostgreSQL databases through the DirectAdmin interface.
@@ -10,7 +11,7 @@ This plugin integrates PostgreSQL database management into the DirectAdmin contr
   - Create and manage database users
   - View PostgreSQL status and statistics
   - Configure PostgreSQL settings
-  
+
 - **User Panel**:
   - Create and manage PostgreSQL databases
   - View database credentials
@@ -26,10 +27,25 @@ This plugin integrates PostgreSQL database management into the DirectAdmin contr
 
 ### Automatic Installation
 
-1. Download the latest release package to your server
-2. Extract the package: `tar -xzf postgresql_plugin-2.0.tar.gz`
-3. Navigate to the extracted directory: `cd postgresql_plugin-2.0`
-4. Run the installation script: `bash install.sh`
+1. Download the latest release `.zip` package to your server:
+   ```bash
+   wget https://github.com/embire2/PostgreSQL-Plugin-for-Direct-Admin/raw/main/DirectAdmin-PostgreSQLv2_0.zip
+   ```
+
+2. Unzip the package:
+   ```bash
+   unzip DirectAdmin-PostgreSQLv2_0.zip -d postgresql_plugin-2.0
+   ```
+
+3. Navigate to the extracted directory:
+   ```bash
+   cd postgresql_plugin-2.0
+   ```
+
+4. Run the installation script:
+   ```bash
+   bash install.sh
+   ```
 
 The script will:
 - Install PostgreSQL if not already installed
@@ -40,39 +56,50 @@ The script will:
 
 ### Manual Installation
 
-1. Download and extract the plugin package
-2. Copy the plugin files to DirectAdmin's plugin directory:
+1. Download and unzip the plugin package:
+   ```bash
+   wget https://github.com/embire2/PostgreSQL-Plugin-for-Direct-Admin/raw/main/DirectAdmin-PostgreSQLv2_0.zip
+   unzip DirectAdmin-PostgreSQLv2_0.zip -d postgresql_plugin
    ```
+
+2. Copy the plugin files to DirectAdmin's plugin directory:
+   ```bash
    mkdir -p /usr/local/directadmin/plugins/postgresql_plugin
    cp -rf postgresql_plugin/* /usr/local/directadmin/plugins/postgresql_plugin/
    ```
+
 3. Set proper permissions:
-   ```
+   ```bash
    chown -R diradmin:diradmin /usr/local/directadmin/plugins/postgresql_plugin
    chmod -R 755 /usr/local/directadmin/plugins/postgresql_plugin
    chmod +x /usr/local/directadmin/plugins/postgresql_plugin/exec/*.sh
    chmod +x /usr/local/directadmin/plugins/postgresql_plugin/hooks/*.sh
    chmod +x /usr/local/directadmin/plugins/postgresql_plugin/scripts/*.sh
    ```
+
 4. Register hooks with DirectAdmin:
-   ```
+   ```bash
    ln -sf /usr/local/directadmin/plugins/postgresql_plugin/hooks/postgresql_create_user.sh /usr/local/directadmin/scripts/custom/postgresql_create_user.sh
    ln -sf /usr/local/directadmin/plugins/postgresql_plugin/hooks/postgresql_delete_user.sh /usr/local/directadmin/scripts/custom/postgresql_delete_user.sh
    ```
+
 5. Install PostgreSQL if not already installed:
-   ```
+   ```bash
    bash /usr/local/directadmin/plugins/postgresql_plugin/scripts/install_postgresql.sh
    ```
+
 6. Configure PostgreSQL for DirectAdmin integration:
-   ```
+   ```bash
    bash /usr/local/directadmin/plugins/postgresql_plugin/exec/postgres_control.sh configure
    ```
+
 7. Register the plugin with DirectAdmin:
-   ```
+   ```bash
    echo "postgresql_plugin=2.0" >> /usr/local/directadmin/conf/plugins.conf
    ```
+
 8. Restart DirectAdmin:
-   ```
+   ```bash
    service directadmin restart
    ```
 
@@ -80,38 +107,51 @@ The script will:
 
 After installation, you can access the plugin at:
 
-- **Admin Access**: https://your-server:2222/CMD_PLUGINS/postgresql_plugin
+- **Admin Access**: https://your-server:2222/CMD_PLUGINS/postgresql_plugin  
 - **User Access**: https://your-server:2222/CMD_PLUGINS/postgresql_plugin
 
 ## Uninstallation
 
 ### Automatic Uninstallation
 
-1. Navigate to the plugin package directory
-2. Run the uninstallation script: `bash uninstall.sh`
+1. Navigate to the plugin package directory  
+2. Run the uninstallation script:
+   ```bash
+   bash uninstall.sh
+   ```
 
 The script will prompt you to choose whether to uninstall PostgreSQL and remove all data, or just remove the plugin while preserving the PostgreSQL installation and data.
 
 ### Manual Uninstallation
 
 1. Remove DirectAdmin hooks:
-   ```
+   ```bash
    rm -f /usr/local/directadmin/scripts/custom/postgresql_create_user.sh
    rm -f /usr/local/directadmin/scripts/custom/postgresql_delete_user.sh
    ```
+
 2. Remove the plugin from DirectAdmin's plugin configuration:
-   ```
+   ```bash
    sed -i '/^postgresql_plugin=/d' /usr/local/directadmin/conf/plugins.conf
    ```
+
 3. Remove the plugin directory:
-   ```
+   ```bash
    rm -rf /usr/local/directadmin/plugins/postgresql_plugin
    ```
+
 4. Optionally, uninstall PostgreSQL:
-   - For CentOS/RHEL: `yum remove postgresql postgresql-server`
-   - For Debian/Ubuntu: `apt-get remove postgresql postgresql-client`
+   - For CentOS/RHEL:
+     ```bash
+     yum remove postgresql postgresql-server
+     ```
+   - For Debian/Ubuntu:
+     ```bash
+     apt-get remove postgresql postgresql-client
+     ```
+
 5. Restart DirectAdmin:
-   ```
+   ```bash
    service directadmin restart
    ```
 
