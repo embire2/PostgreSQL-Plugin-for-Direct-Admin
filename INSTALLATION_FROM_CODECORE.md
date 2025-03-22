@@ -12,7 +12,7 @@ The PostgreSQL plugin for DirectAdmin is available through the following methods
 
 Download the latest version directly from our website:
 
-**URL**: [https://codecore.codes/software/postgresql_plugin-2.2.tar.gz](https://codecore.codes/software/postgresql_plugin-2.2.tar.gz)
+**URL**: [https://codecore.codes/software/postgresql_plugin-2.3.tar.gz](https://codecore.codes/software/postgresql_plugin-2.3.tar.gz)
 
 ### Option 2: GitHub Repository
 
@@ -27,10 +27,10 @@ Before installing, ensure your server meets these requirements:
 1. DirectAdmin 1.60.0 or later
 2. One of the following operating systems:
    - CentOS 7 or 8
-   - AlmaLinux 8
-   - Rocky Linux 8
-   - Debian 10 or 11
-   - Ubuntu 20.04 or 22.04
+   - AlmaLinux 8 or 9
+   - Rocky Linux 8 or 9
+   - Debian 10, 11 or 12
+   - Ubuntu 20.04, 22.04 or 24.04
 3. Root access to the server
 4. Minimum 2GB RAM (4GB recommended)
 5. At least 10GB of free disk space
@@ -46,7 +46,7 @@ Connect to your server via SSH and download the plugin package:
 
 ```bash
 cd /usr/src
-wget https://codecore.codes/software/postgresql_plugin-2.2.tar.gz
+wget https://codecore.codes/software/postgresql_plugin-2.3.tar.gz
 ```
 
 #### Step 2: Extract the Package
@@ -54,8 +54,8 @@ wget https://codecore.codes/software/postgresql_plugin-2.2.tar.gz
 Extract the downloaded package:
 
 ```bash
-tar -xzf postgresql_plugin-2.2.tar.gz
-cd postgresql_plugin-2.2
+tar -xzf postgresql_plugin-2.3.tar.gz
+cd postgresql_plugin-2.3
 ```
 
 #### Step 3: Run the Installation Script
@@ -163,7 +163,7 @@ If you encounter any issues during or after installation, check the following:
 If you need to uninstall the plugin:
 
 ```bash
-cd /usr/src/postgresql_plugin-2.2
+cd /usr/src/postgresql_plugin-2.3
 bash uninstall.sh
 ```
 
